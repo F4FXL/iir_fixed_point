@@ -18,7 +18,8 @@ q = 14
 scaling_factor = 2**q
 
 # let's generate a sequence of 2nd order IIR filters
-sos = signal.butter(2,[f1/fs*2,f2/fs*2],'pass',output='sos')
+#sos = signal.butter(2,[f1/fs*2,f2/fs*2],'pass',output='sos')
+sos = signal.cheby1(3,0.2,[f1/fs*2,f2/fs*2],'bandpass',output='sos')
 
 sos = np.round(sos * scaling_factor)
 
@@ -35,5 +36,5 @@ pl.plot(w/np.pi/2*fs,20*np.log(np.abs(h)))
 pl.xlabel('frequency/Hz');
 pl.ylabel('gain/dB');
 pl.ylim(top=1,bottom=-20);
-pl.xlim(left=250, right=3000);
+pl.xlim(left=250, right=12000);
 pl.show()
