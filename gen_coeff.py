@@ -6,11 +6,11 @@ import pylab as pl
 # integer filter
 
 # sampling rate
-fs = 1000
+fs = 24000
 
 # cutoffs
-f1 = 45
-f2 = 55
+f1 = 300
+f2 = 2700
 
 # scaling factor in bits
 q = 14
@@ -18,7 +18,7 @@ q = 14
 scaling_factor = 2**q
 
 # let's generate a sequence of 2nd order IIR filters
-sos = signal.butter(2,[f1/fs*2,f2/fs*2],'stop',output='sos')
+sos = signal.butter(4,[f1/fs*2,f2/fs*2],'pass',output='sos')
 
 sos = np.round(sos * scaling_factor)
 
@@ -34,4 +34,6 @@ w,h = signal.freqz(b,a)
 pl.plot(w/np.pi/2*fs,20*np.log(np.abs(h)))
 pl.xlabel('frequency/Hz');
 pl.ylabel('gain/dB');
+pl.ylim(top=1,bottom=-20);
+pl.xlim(left=250, right=3000);
 pl.show()
