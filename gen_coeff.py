@@ -18,7 +18,7 @@ q = 14
 scaling_factor = 2**q
 
 # let's generate a sequence of 2nd order IIR filters
-sos = signal.butter(4,[f1/fs*2,f2/fs*2],'pass',output='sos')
+sos = signal.butter(2,[f1/fs*2,f2/fs*2],'pass',output='sos')
 
 sos = np.round(sos * scaling_factor)
 
